@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER.PUNK // 2077</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050505;
+            color: #0ff;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+            letter-spacing: 4px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #f0f;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #f0f;
+        }
+
+        .nav a:hover {
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0ff;
+            box-shadow: 0 0 10px #0ff;
+            transition: width 0.3s;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            position: relative;
+            color: #fff;
+            animation: glitch 3s infinite;
+        }
+
+        .hero-title::before,
+        .hero-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .hero-title::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-1 2s infinite linear alternate-reverse;
+        }
+
+        .hero-title::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-2 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            2% { transform: translate(2px, -2px); }
+            4% { transform: translate(-2px, 2px); }
+            6% { transform: translate(0); }
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            20% { clip-path: inset(20% 0 30% 0); transform: translate(-3px, 3px); }
+            40% { clip-path: inset(50% 0 20% 0); transform: translate(3px, -3px); }
+            60% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 2px); }
+            80% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            15% { clip-path: inset(60% 0 10% 0); transform: translate(3px, -3px); }
+            35% { clip-path: inset(10% 0 70% 0); transform: translate(-3px, 3px); }
+            55% { clip-path: inset(40% 0 30% 0); transform: translate(2px, -2px); }
+            75% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            letter-spacing: 8px;
+            color: #ff0;
+            text-shadow: 0 0 10px #ff0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .cta-button {
+            margin-top: 50px;
+            padding: 15px 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            background: transparent;
+            color: #0ff;
+            border: 2px solid #0ff;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* Grid Lines */
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .grid-lines::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(90deg, #0ff 1px, transparent 1px),
+                linear-gradient(0deg, #0ff 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #0ff;
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #f0f;
+            text-shadow: 0 0 20px #f0f;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #f0f, transparent);
+            box-shadow: 0 0 15px #f0f;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(0, 20, 40, 0.6);
+            border: 1px solid #0ff;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+            border-color: #ff0;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: #ff0;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #ff0;
+        }
+
+        .card-text {
+            color: #8ff;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .card-line {
+            position: absolute;
+            background: #0ff;
+        }
+
+        .card-line.top { top: 0; left: 0; width: 30px; height: 2px; }
+        .card-line.right { top: 0; right: 0; width: 2px; height: 30px; }
+        .card-line.bottom { bottom: 0; right: 0; width: 30px; height: 2px; }
+        .card-line.left { bottom: 0; left: 0; width: 2px; height: 30px; }
+
+        /* Terminal Section */
+        .terminal {
+            background: rgba(0, 10, 20, 0.9);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 50px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #0f0;
+        }
+
+        .terminal-title {
+            color: #0f0;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-btn.red { background: #ff5f56; }
+        .terminal-btn.yellow { background: #ffbd2e; }
+        .terminal-btn.green { background: #27c93f; }
+
+        .terminal-content {
+            color: #0f0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .terminal-line.prompt {
+            color: #0ff;
+        }
+
+        .terminal-line.command {
+            color: #ff0;
+        }
+
+        .terminal-line.output {
+            color: #8f8;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid #333;
+            margin-top: 100px;
+        }
+
+        .footer-text {
+            color: #666;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                gap: 15px;
+            }
+
+            .section {
+                padding: 50px 20px;
+            }
+
+            .hero-title {
+                letter-spacing: 5px;
+            }
+
+            .hero-subtitle {
+                letter-spacing: 4px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">CYBER<span style="color:#f0f">.PUNK</span></div>
+        <nav class="nav">
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#services">SERVICES</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="grid-lines"></div>
+        <div class="particles" id="particles"></div>
+
+        <div class="glitch-wrapper">
+            <h1 class="hero-title" data-text="CYBERPUNK">CYBERPUNK</h1>
+            <p class="hero-subtitle">THE FUTURE IS NOW</p>
+        </div>
+
+        <button class="cta-button" onclick="scrollToSection('about')">
+            ENTER THE GRID
+        </button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">// ABOUT_NEXUS</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">⚡</div>
+                <h3 class="card-title">NEURAL LINKS</h3>
+                <p class="card-text">Advanced brain-computer interfaces that seamlessly integrate human consciousness with digital networks. Experience the mesh.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">🔒</div>
+                <h3 class="card-title">QUANTUM SECURITY</h3>
+                <p class="card-text">Unbreakable encryption protocols powered by quantum mechanics. Your data is safe in the multiverse.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">🌐</div>
+                <h3 class="card-title">SYNDICATE MATRIX</h3>
+                <p class="card-text">Decentralized neural networks operating beyond corporate firewalls. Join the resistance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Section -->
+    <section id="services" class="section">
+        <h2 class="section-title">// SYSTEM_LOGS</h2>
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-title">root@cyberdeck:~</span>
+                <div class="terminal-controls">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                </div>
+            </div>
+            <div class="terminal-content" id="terminal-content">
+                <!-- Terminal lines will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">// ESTABLISH_UPLINK</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">📡</div>
+                <h3 class="card-title">NEURAL MAIL</h3>
+                <p class="card-text">contact@cyberpunk.nexus</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">📡</div>
+                <h3 class="card-title">DATA CHANNEL</h3>
+                <p class="card-text">#cyberpunk:matrix.org</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">📍</div>
+                <h3 class="card-title">LOCATION</h3>
+                <p class="card-text">Night City, Sector 7<br>Behind the firewall</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2077 CYBERPUNK NEXUS // ALL RIGHTS RESERVED // SYSTEM VERSION 3.14</p>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+
+                const colors = ['#0ff', '#f0f', '#ff0', '#0f0'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Terminal typing effect
+        const terminalCommands = [
+            { prompt: 'user@cyberdeck:~$', command: 'sudo whoami', delay: 500 },
+            { output: 'ACCESS GRANTED: NEURAL_ADMIN', delay: 1500 },
+            { prompt: 'user@cyberdeck:~$', command: 'ls -la /neural/core', delay: 3000 },
+            { output: 'total 4096', delay: 500 },
+            { output: 'drwxr-xr-x  2 user neural   4096 Mar 29 2077  memories', delay: 300 },
+            { output: 'drwxr-xr-x  5 user neural   4096 Mar 29 2077  connections', delay: 300 },
+            { output: 'drwxr-xr-x  3 user neural   4096 Mar 29 2077  upgrades', delay: 300 },
+            { output: 'drwxr-x--- 10 user neural   4096 Mar 29 2077  encrypted_data', delay: 300 },
+            { prompt: 'user@cyberdeck:~$', command: './initiate_protocol.sh --secure', delay: 4000 },
+            { output: '> Initializing neural handshake...', delay: 800 },
+            { output: '> Establishing quantum tunnel...', delay: 800 },
+            { output: '> Handshake verified. Welcome to the grid.', delay: 1000 },
+            { prompt: 'user@cyberdeck:~$', command: '', delay: 2000 }
+        ];
+
+        function typeTerminal() {
+            const terminal = document.getElementById('terminal-content');
+            let currentLine = 0;
+            let charIndex = 0;
+            let isTyping = false;
+            let currentText = '';
+
+            function addLine(line, type) {
+                const div = document.createElement('div');
+                div.className = `terminal-line ${type}`;
+                div.textContent = line;
+                terminal.appendChild(div);
+            }
+
+            function typeCommand() {
+                if (currentLine >= terminalCommands.length) {
+                    // Reset and loop
+                    setTimeout(() => {
+                        terminal.innerHTML = '';
+                        currentLine = 0;
+                        typeTerminal();
+                    }, 5000);
+                    return;
+                }
+
+                const item = terminalCommands[currentLine];
+
+                if (item.prompt) {
+                    addLine(item.prompt, 'prompt');
+                }
+
+                if (item.command) {
+                    isTyping = true;
+                    currentText = '';
+                    const commandDiv = document.createElement('div');
+                    commandDiv.className = 'terminal-line command';
+                    terminal.appendChild(commandDiv);
+
+                    function typeChar() {
+                        if (charIndex < item.command.length) {
+                            commandDiv.textContent = item.command.substring(0, charIndex + 1);
+                            charIndex++;
+                            setTimeout(typeChar, 30);
+                        } else {
+                            isTyping = false;
+                            charIndex = 0;
+                            currentLine++;
+                            setTimeout(typeCommand, item.delay);
+                        }
+                    }
+                    typeChar();
+                } else if (item.output) {
+                    addLine(item.output, 'output');
+                    currentLine++;
+                    setTimeout(typeCommand, item.delay);
+                }
+            }
+
+            typeCommand();
+        }
+
+        // Smooth scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setTimeout(typeTerminal, 1000);
+        });
+
+        // Add cursor blink to terminal
+        const style = document.createElement('style');
+        style.textContent = `
+            .terminal-line.command::after {
+                content: '▋';
+                animation: blink 1s infinite;
+                color: #ff0;
+            }
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

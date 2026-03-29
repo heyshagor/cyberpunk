@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER.PUNK // 2077</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">CYBER<span style="color:#f0f">.PUNK</span></div>
+        <nav class="nav">
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#services">SERVICES</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="grid-lines"></div>
+        <div class="particles" id="particles"></div>
+
+        <div class="glitch-wrapper">
+            <h1 class="hero-title" data-text="CYBERPUNK">CYBERPUNK</h1>
+            <p class="hero-subtitle">THE FUTURE IS NOW</p>
+        </div>
+
+        <button class="cta-button" onclick="scrollToSection('about')">
+            ENTER THE GRID
+        </button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">// ABOUT_NEXUS</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">⚡</div>
+                <h3 class="card-title">NEURAL LINKS</h3>
+                <p class="card-text">Advanced brain-computer interfaces that seamlessly integrate human consciousness with digital networks. Experience the mesh.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">🔒</div>
+                <h3 class="card-title">QUANTUM SECURITY</h3>
+                <p class="card-text">Unbreakable encryption protocols powered by quantum mechanics. Your data is safe in the multiverse.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">🌐</div>
+                <h3 class="card-title">SYNDICATE MATRIX</h3>
+                <p class="card-text">Decentralized neural networks operating beyond corporate firewalls. Join the resistance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Section -->
+    <section id="services" class="section">
+        <h2 class="section-title">// SYSTEM_LOGS</h2>
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-title">root@cyberdeck:~</span>
+                <div class="terminal-controls">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                </div>
+            </div>
+            <div class="terminal-content" id="terminal-content">
+                <!-- Terminal lines will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">// ESTABLISH_UPLINK</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">📡</div>
+                <h3 class="card-title">NEURAL MAIL</h3>
+                <p class="card-text">contact@cyberpunk.nexus</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">📡</div>
+                <h3 class="card-title">DATA CHANNEL</h3>
+                <p class="card-text">#cyberpunk:matrix.org</p>
+            </div>
+
+            <div class="card">
+                <div class="card-line top"></div>
+                <div class="card-line right"></div>
+                <div class="card-line bottom"></div>
+                <div class="card-line left"></div>
+                <div class="card-icon">📍</div>
+                <h3 class="card-title">LOCATION</h3>
+                <p class="card-text">Night City, Sector 7<br>Behind the firewall</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2077 CYBERPUNK NEXUS // ALL RIGHTS RESERVED // SYSTEM VERSION 3.14</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
