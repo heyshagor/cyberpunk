@@ -465,14 +465,17 @@ body::before {
         padding: 15px 20px;
         flex-direction: column;
         gap: 15px;
+        align-items: center;
     }
 
     .nav {
         gap: 15px;
+        justify-content: center;
     }
 
     .section {
         padding: 50px 20px;
+        text-align: center;
     }
 
     .hero-title {
